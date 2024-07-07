@@ -1,8 +1,23 @@
-# React + Vite
+<ul>
+  <li>
+    Website Name: Task Master
+  </li>
+  <li>
+    Live link: https://task-master-96.web.app/
+  </li>
+</ul>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Admin Panel:
+Email: taskmaster@gmail.com
+Password: task123
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features:
+<ol>
+  <li>This is a task management website.</li>
+  <li>An user can see the tasks in the home page.</li>
+  <li>After signing in or signing up, user can see his to do list in the dashboard page</li>
+  <li>An user can move his task to in-progress list by clicking the arrow sign in the to-do list and can move the task to completed tasks list by clicking arrow sign in in-progress list.</li>
+  <li>Admin can see the user list and make anyone admin</li>
+  <li>An admin can assign an user a task. Also can delete a task</li>
+  <li>Admin can also add task in the Add Task page.</li>
+</ol>
