@@ -9,8 +9,10 @@ import AuthProvider from "./components/provider/AuthProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SignUp from "./components/pages/sign/SignUp.jsx";
 import Dashboard from "./components/pages/dashboard/Dashboard.jsx";
-import AddTask from "./components/pages/addTask/AddTask.jsx";
-const queryClient = new QueryClient() ;
+import AddTask from "./components/pages/adminRouter/addTask/AddTask.jsx";
+import AllTasks from "./components/pages/adminRouter/allTasks/AllTasks.jsx";
+import UserList from "./components/pages/adminRouter/userList/UserList.jsx";
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -27,16 +29,24 @@ const router = createBrowserRouter([
       },
       {
         path: "/signUp",
-        element: <SignUp />
+        element: <SignUp />,
       },
       {
         path: "/dashboard",
-        element: <Dashboard />
+        element: <Dashboard />,
       },
       {
         path: "/addTask",
-        element: <AddTask />
-      }
+        element: <AddTask />,
+      },
+      {
+        path: "/user",
+        element: <UserList />,
+      },
+      {
+        path: "/allTask",
+        element: <AllTasks />,
+      },
     ],
   },
 ]);

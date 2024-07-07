@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
 import { useContext } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import task from "../../../assets/task.png"
-import Cover from "../../hooks/Cover";
+import task from "../../../../assets/task.png"
+import { AuthContext } from "../../../provider/AuthProvider";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Cover from "../../../hooks/Cover";
 
 const AddTask = () => {
     const { register, handleSubmit, reset } = useForm();

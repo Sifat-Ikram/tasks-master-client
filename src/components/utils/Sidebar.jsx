@@ -1,15 +1,20 @@
 import { SquaresPlusIcon } from "@heroicons/react/24/solid";
-import { VscSignIn, VscSignOut } from "react-icons/vsc";
+import { VscSignIn } from "react-icons/vsc";
 import { FaSignInAlt } from "react-icons/fa";
 import { MdAddTask } from "react-icons/md";
 import { IoIosHome } from "react-icons/io";
+import { IoPersonSharp } from "react-icons/io5";
+import { GrTask } from "react-icons/gr";
+import { GoSignIn } from "react-icons/go";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import img from "../../assets/logo.png"
+import img from "../../assets/logo.png";
+import useAdmin from "../hooks/useAdmin";
 
 const Sidebar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
 
   const handleSignOut = () => {
     logOut()
@@ -20,15 +25,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="h-screen fixed top-20 w-20 border-r-2 border-secondary/20">
+    <div className="h-screen fixed top-20 w-20 border-r-2 border-primary/20">
       <div className="flex flex-col justify-start items-center gap-5 h-full py-5">
-        <div className="btn btn-ghost btn-circle avatar">
-          <div className="w-10">
-            <img
-              alt=""
-              src={img}
-            />
-          </div>
+        <div className="w-10">
+          <img alt="logo" src={img} className="cursor-pointer mb-8" />
         </div>
 
         <NavLink
@@ -58,7 +58,23 @@ const Sidebar = () => {
                 <SquaresPlusIcon className="h-7 w-7 group-hover:text-white" />
               </div>
             </NavLink>
+          </>
+        )}
 
+        {isAdmin && (
+          <>
+            <NavLink
+              to="/user"
+              className={({ isActive }) =>
+                isActive
+                  ? "p-2 rounded-2xl bg-primary text-white cursor-pointer"
+                  : "p-2 rounded-2xl group bg-primary text-white cursor-pointer transition-all"
+              }
+            >
+              <div className="tooltip tooltip-right" data-tip="Users">
+                <IoPersonSharp className="h-7 w-7 group-hover:text-white" />
+              </div>
+            </NavLink>
             <NavLink
               to="/addTask"
               className={({ isActive }) =>
@@ -71,15 +87,18 @@ const Sidebar = () => {
                 <MdAddTask className="h-7 w-7 group-hover:text-white" />
               </div>
             </NavLink>
-
-            <button className="bg-primary p-2 text-white rounded-2xl ">
-              <div className="tooltip tooltip-right" data-tip="Sign Out">
-                <VscSignOut
-                  onClick={handleSignOut}
-                  className="h-7 w-7 group-hover:text-white "
-                />
+            <NavLink
+              to="/allTask"
+              className={({ isActive }) =>
+                isActive
+                  ? "p-2 rounded-2xl bg-primary text-white cursor-pointer"
+                  : "p-2 rounded-2xl group bg-primary text-white cursor-pointer transition-all"
+              }
+            >
+              <div className="tooltip tooltip-right" data-tip="All Task">
+                <GrTask className="h-6 w-7 group-hover:text-white" />
               </div>
-            </button>
+            </NavLink>
           </>
         )}
 
@@ -94,7 +113,7 @@ const Sidebar = () => {
               }
             >
               <div className="tooltip tooltip-right" data-tip="Sign Up">
-                <FaSignInAlt className="h-7 w-7 group-hover:text-white " />
+                <GoSignIn className="h-7 w-7 group-hover:text-white " />
               </div>
             </NavLink>
             <NavLink
@@ -109,6 +128,18 @@ const Sidebar = () => {
                 <VscSignIn className="h-7 w-7 group-hover:text-white " />
               </div>
             </NavLink>
+          </>
+        )}
+        {user && (
+          <>
+            <button className="bg-primary p-2 text-white rounded-2xl ">
+              <div className="tooltip tooltip-right" data-tip="Sign Out">
+                <FaSignInAlt
+                  onClick={handleSignOut}
+                  className="h-7 w-7 group-hover:text-white "
+                />
+              </div>
+            </button>
           </>
         )}
       </div>

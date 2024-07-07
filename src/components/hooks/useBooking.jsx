@@ -11,7 +11,7 @@ const useBooking = () => {
     const { refetch: refetchBooking, data: booking = [] } = useQuery({
         queryKey: ['booking', user?.email],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/bookings?email=${user.email}`)
+            const res = await axiosPublic.get('/bookings')
             return res.data;
         }
 

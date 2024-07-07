@@ -12,7 +12,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-  const [booking, refetchBooking] = useBooking();
+  const [booking] = useBooking();
   const [running, refetchRunning] = useRunning();
   const [completed, refetchCompleted] = useCompleted();
 
@@ -20,43 +20,24 @@ const Dashboard = () => {
     return <h1>Loading...</h1>;
   }
 
-  const handlePendingDelete = (item) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosPublic.delete(`/bookings/${item._id}`).then(() => {
-          refetchBooking();
-          Swal.fire({
-            position: "top-right",
-            title: "Deleted!",
-            text: "This task is deleted",
-            icon: "success",
-          });
-        });
-      }
-    });
-  };
+  const assignedBooking = booking.filter(
+    (item) => item.assignedUserEmail === user.email
+  );
+  const assignedRunning = running.filter((item) => item.email === user.email);
+  const assignedCompleted = completed.filter(
+    (item) => item.email === user.email
+  );
 
   const handleToRunning = (task) => {
     const runningTask = {
-      userName: task.userName,
-      email: task.email,
+      userName: task.assignedUser,
+      email: task.assignedUserEmail,
       taskName: task.taskName,
       description: task.description,
     };
 
     axiosPublic.post("/running", runningTask).then(() => {
-      axiosPublic.delete(`/bookings/${task._id}`).then(() => {
-        refetchBooking();
-        refetchRunning();
-      });
+      refetchRunning();
     });
   };
 
@@ -93,10 +74,8 @@ const Dashboard = () => {
     };
 
     axiosPublic.post("/completed", completedTask).then(() => {
-      axiosPublic.delete(`/running/${task._id}`).then(() => {
-        refetchRunning();
-        refetchCompleted();
-      });
+      refetchRunning();
+      refetchCompleted();
     });
   };
 
@@ -131,23 +110,19 @@ const Dashboard = () => {
           Manage your tasks
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg shadow-md">
+          <div className="bg-white rounded-lg shadow-md h-fit">
             <h2 className="text-xl font-semibold py-4 border-b border-gray-300 text-center bg-primary text-white rounded-t-lg">
               To Do
             </h2>
             <div className="p-4">
-              {booking.length ? (
-                booking?.map((task) => (
+              {assignedBooking.length ? (
+                assignedBooking?.map((task) => (
                   <div
                     key={task._id}
                     className="flex items-center justify-between border-b border-gray-300 py-2"
                   >
                     <p className="text-lg">{task.taskName}</p>
-                    <div className="flex items-center gap-4">
-                      <MdDelete
-                        onClick={() => handlePendingDelete(task)}
-                        className="text-red-700 cursor-pointer"
-                      />
+                    <div className="flex items-center">
                       <FaArrowRight
                         onClick={() => handleToRunning(task)}
                         className="text-blue-700 cursor-pointer"
@@ -160,13 +135,13 @@ const Dashboard = () => {
               )}
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow-md">
+          <div className="bg-white rounded-lg shadow-md h-fit">
             <h2 className="text-xl font-semibold py-4 border-b border-gray-300 text-center bg-primary text-white rounded-t-lg">
               In Progress
             </h2>
             <div className="p-4">
-              {running.length ? (
-                running?.map((task) => (
+              {assignedRunning.length ? (
+                assignedRunning?.map((task) => (
                   <div
                     key={task._id}
                     className="flex items-center justify-between border-b border-gray-300 py-2"
@@ -191,9 +166,11 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 border-l-2 border-solid ml-2 mt-20">
+      <div className="flex-1 border-l-2 border-solid ml-2 mt-20 min-h-screen">
         <div className="pt-5 w-11/12 flex justify-center items-center pb-2 mx-auto gap-3 border-b-2">
-          <IoPersonSharp />
+          <div className="border-2 rounded-full border-gray-300 p-2">
+            <IoPersonSharp className="text-3xl" />
+          </div>
           <div>
             <h1 className="text-xl font-semibold">{user.displayName}</h1>
             <p>{user.email}</p>
@@ -204,8 +181,8 @@ const Dashboard = () => {
             Completed Tasks
           </h2>
           <div className="">
-            {completed.length ? (
-              completed?.map((task) => (
+            {assignedCompleted.length ? (
+              assignedCompleted?.map((task) => (
                 <div
                   key={task._id}
                   className="flex items-center justify-between border-b border-gray-300 py-3 px-4"

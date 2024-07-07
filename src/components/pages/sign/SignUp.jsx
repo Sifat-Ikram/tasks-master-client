@@ -3,11 +3,14 @@ import img from "../../../assets/authentication.gif";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../../provider/AuthProvider";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  //   const axiosPublic = useAxiosPublic();
-  //   const navigate = useNavigate();
-  //   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { createUser } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
@@ -37,21 +40,19 @@ const SignUp = () => {
             console.error(err.message);
           });
 
-        //   const userInfo = {
-        //     name: data.name,
-        //     email: data.email,
-        //   };
-        //   axiosPublic
-        //     .post("/user", userInfo)
-        //     .then((res) => {
-        //       if (res.data.insertedId) {
-        //         console.log(res.data);
-        //         Swal.fire("You signed up successfully!");
-        //         navigate(location?.state ? location.state : "/");
-        //       } else {
-        //         Swal.fire("Your signed up failed!");
-        //       }
-        //     });
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic.post("/user", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log(res.data);
+            Swal.fire("You signed up successfully!");
+            navigate(location?.state ? location.state : "/");
+          } else {
+            Swal.fire("Your signed up failed!");
+          }
+        });
       })
       .catch((err) => {
         console.error(err);

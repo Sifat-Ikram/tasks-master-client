@@ -1,44 +1,48 @@
-// import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const HomePage = () => {
-  //   const axiosPublic = useAxiosPublic();
-//   const navigate = useNavigate();
-//   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
+
+  const {
+    data: tasks = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["tasks._id"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/task");
+      return res.data;
+    },
+  });
 
   return (
-    <div className="w-5/6 mx-auto mt-28 mb-10 space-y-10">
-      {/* <div className="grid grid-cols-1 space-y-7">
+    <div className="mt-24">
+      <h1 className="text-6xl font-bold text-center">Featured Tasks</h1>
+      <div className="grid grid-cols-1 space-y-7 mt-20 w-4/5 mx-auto">
         {isLoading ? (
           <div>Loading...</div>
         ) : isError ? (
           <div>Error fetching data</div>
         ) : (
-          paginatedTasks.map((task) => (
-            <div key={task._id} data-aos="fade-up">
-              <div className="shadow-xl border-2 border-solid">
+          tasks.map((task) => (
+            <div key={task._id}>
+              <div className="shadow-xl border-2 border-solid rounded-md">
                 <div className="card-body">
-                  <h2 className="card-title">Task: {task.name}</h2>
-                  <p className="text-lg font-semibold">
-                    Added by {task?.addedName}
+                  <h2 className="card-title">Task: {task.task_name}</h2>
+                  <p className="text-lg">
+                    Added by{" "}
+                    <span className="font-semibold">{task?.assigned}</span>
                   </p>
                   <p>
-                    <span className="text-lg font-semibold">Description:</span>{" "}
-                    {task.description}
+                    <span className="text-lg">Description:</span> {task.details}
                   </p>
-                  <div className="flex justify-end">
-                    <button
-                      className="btn btn-outline btn-primary"
-                    //   onClick={() => handleBook(task)}
-                    >
-                      Add this task to to do list
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
           ))
         )}
-      </div> */}
+      </div>
     </div>
   );
 };
