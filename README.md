@@ -7,6 +7,8 @@
   </li>
 </ul>
 
+This is a task management website. An user can sign up and can see what task he has been given. User can move the task from to do list to in progress list and to completed list. An admin can add and delete a task. Admin can also assign an user a task. Admin can see the user list and can make an user admin.
+
 Admin Panel: <br>
 Email: taskmaster@gmail.com<br>
 Password: task123<br>
