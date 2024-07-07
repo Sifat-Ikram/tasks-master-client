@@ -7,9 +7,9 @@
   </li>
 </ul>
 
-Admin Panel:
-Email: taskmaster@gmail.com
-Password: task123
+Admin Panel: <br>
+Email: taskmaster@gmail.com<br>
+Password: task123<br>
 
 Features:
 <ol>
