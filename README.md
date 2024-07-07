@@ -25,3 +25,17 @@ Features:
   <li>An admin can assign an user a task. Also can delete a task</li>
   <li>Admin can also add task in the Add Task page.</li>
 </ol>
+
+Steps to run this code locally,
+To run this app locally, Firstly, for frontend, frontend github repository link should be cloned through command prompt. As I have deployed the backend in vercel, so there will be no problem from the backend side. Next, necessary dependencies must be installed. Now a .env.local file should be created and with the information given below, .env.local file must be filled. <br />
+Frontend .env.local file information: <br />
+<ul>
+  <li>VITE_apiKey=AIzaSyByZvhHxkh_h_fMQY1FB2AmUkt1jcAgQ04</li>
+  <li>VITE_authDomain=task-master-96.firebaseapp.com</li>
+  <li>VITE_projectId=task-master-96</li>
+  <li>VITE_storageBucket=task-master-96.appspot.com</li>
+  <li>VITE_messagingSenderId=1054568211436</li>
+  <li>VITE_appId=1:1054568211436:web:34ca145411ac78758d56c9</li>
+</ul>
+
+After completing theses steps, If we run command "npm run dev", the website will be running on localhost.
