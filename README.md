@@ -26,9 +26,8 @@ Features:
   <li>Admin can also add task in the Add Task page.</li>
 </ol>
 
-Steps to run this code locally,
-To run this app locally, Firstly, for frontend, frontend github repository link should be cloned through command prompt. As I have deployed the backend in vercel, so there will be no problem from the backend side. Next, necessary dependencies must be installed. Now a .env.local file should be created and with the information given below, .env.local file must be filled. <br />
-Frontend .env.local file information: <br />
+Steps to run this code locally,<br />
+To run this application locally, please follow the steps outlined below. First, for the frontend, clone the frontend GitHub repository using the command prompt. Since the backend has already been deployed on Vercel, there will be no issues from the backend side. Next, install the necessary dependencies. After that, create a .env.local file in the root directory of your project and fill it with the information provided below:<br />
 <ul>
   <li>VITE_apiKey=AIzaSyByZvhHxkh_h_fMQY1FB2AmUkt1jcAgQ04</li>
   <li>VITE_authDomain=task-master-96.firebaseapp.com</li>
@@ -38,4 +37,4 @@ Frontend .env.local file information: <br />
   <li>VITE_appId=1:1054568211436:web:34ca145411ac78758d56c9</li>
 </ul>
 
-After completing theses steps, If we run command "npm run dev", the website will be running on localhost.
+After completing these steps, run the command npm run dev to start the development server. The website will then be accessible at localhost
